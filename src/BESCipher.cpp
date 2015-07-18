@@ -58,7 +58,9 @@ void BESCipher::Init()
 }
 
 
-void BESCipher::Shuffle(int times)
+//Shuffles everything around in the array. This is mainly used to randomize the starting positions.
+//you may specify the number of times
+void BESCipher::Shuffle(int times = 10)
 {
 	byte v;
 	byte pos;
@@ -72,6 +74,7 @@ void BESCipher::Shuffle(int times)
 	Refresh();
 }
 
+//shuffles bytes at the given position in the cipher array.
 void BESCipher::ShufflePosition(int pos)
 {
 	byte pos2 = keyGen->GetRandomByte();
@@ -87,6 +90,9 @@ void BESCipher::ShufflePosition(int pos)
 	swap(Cipher[pos2], Cipher[pos]);
 }
 
+
+//Encrypt Right//
+//Encrypts bytes "to the right". This means that to reverse the process, you need to "encrypt" left.
 void BESCipher::EncryptRight(byte& b)
 {
 	b = Cipher[b];
@@ -115,7 +121,10 @@ void BESCipher::EncryptRight(string& b)
 {
 	EncryptRight((byte*)b.c_str(), b.size());
 }
+//End Encrypt Right//
 
+//Encrypt Left//
+//Encrypts "to the left". To reverse this process, "encrypt" to the right.
 void BESCipher::EncryptLeft(byte& b)
 {
 	b = CipherB[b];
@@ -144,3 +153,4 @@ void BESCipher::EncryptLeft(string& b)
 {
 	EncryptLeft((byte*)b.c_str(), b.size());
 }
+//End Encrypt Left//
