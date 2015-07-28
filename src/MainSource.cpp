@@ -4,6 +4,7 @@
 #include "BasylFileEncryption.h"
 #include "BESCipher.h"
 #include "BasylArray.h"
+#include "StrongerBasylPseudoAdaptor.h"
 using namespace std;
 
 
@@ -44,5 +45,8 @@ int main(int argC, const char * args)
 	}
 	*/
 
+	
+	BasylKeyGenerator bkg("Hi", 1024, 200, 40, 0, "ABCD", BasylArray<byte>(32), BasylArray<byte>(4), BasylArray<byte>(4), false, make_shared<StrongerBasylPseudoAdaptor>());
+	cout << to_string(bkg.GetRandomByte());
 	pause();
 }

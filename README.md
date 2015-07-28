@@ -6,8 +6,7 @@ This is a port of the algorithm written in C#. This runs natively, and of course
 
 
 ### Todo
-I need to port the new BasylPseudoAdaptor functionality from the C# variant over. This shouldn't be too difficult.
- 
+I need to allow the use of BasylPseudoAdaptors in the File Encryption Utility class.
 
 ### More Information
 https://github.com/TheCreatorJames/BESLibrary

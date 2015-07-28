@@ -20,16 +20,17 @@ PseudoRandomGenerator::PseudoRandomGenerator(int size) : PseudoRandomGenerator(s
 
 PseudoRandomGenerator::PseudoRandomGenerator(int size, string pass) : PseudoRandomGenerator(size, pass, 400)
 {
-
 }
 
-PseudoRandomGenerator::PseudoRandomGenerator(int size, string pass, int rounds) 
+
+PseudoRandomGenerator::PseudoRandomGenerator(int size, string pass, int rounds) : PseudoRandomGenerator(size, pass, rounds, make_shared<BasylPseudoAdaptor>())
 {
-	this->rounds = rounds;
-	this->recycleKey = "";
-	position = 0;
+}
+
+PseudoRandomGenerator::PseudoRandomGenerator(int size, string pass, int rounds, shared_ptr<BasylPseudoAdaptor> adaptor) : rounds(rounds), recycleKey(""), position(0), adaptor(adaptor)
+{
 	ResizeGeneration(size);
-	Generate(pass, size);
+	Generate(pass, size);	
 }
 
 PseudoRandomGenerator::~PseudoRandomGenerator()
@@ -39,6 +40,8 @@ PseudoRandomGenerator::~PseudoRandomGenerator()
 
 void PseudoRandomGenerator::Generate(string pass, int size)
 {
+	if (size == 0) return; 
+
 	unsigned __int64 seed = 1;
 
 	//char[] keyN = key.ToCharArray();
@@ -60,15 +63,19 @@ void PseudoRandomGenerator::Generate(string pass, int size)
 	//Cipher it.
 	for (int i = 0; i < rounds; i++)
 	{
-		Cipher();
-		i++; //Just because.
-		CipherB();
+		adaptor->Shuffle(Generation, i);
+
+		if (i % 2 == 0)
+			Cipher();
+		else
+			CipherB();
 	}
 }
 
 unsigned __int64 PseudoRandomGenerator::SeedFunction(unsigned __int64 pos, unsigned __int64 seed)
 {
-	return pos * pos + 2 * pos + pos * pos * pos + seed * pos + seed;
+	return adaptor->SeedFunction(pos, seed);
+	//return pos * pos + 2 * pos + pos * pos * pos + seed * pos + seed;
 }
 
 void PseudoRandomGenerator::Cipher(int begin)
@@ -156,7 +163,7 @@ void PseudoRandomGenerator::Recycle(bool enhanced)
 		CipherB();
 	}
 
-
+	adaptor->Recycle(Generation);
 	position = 0;
 	//turn++;
 }
@@ -195,6 +202,9 @@ void  PseudoRandomGenerator::SetLeftoff(int leftoff)
 
 void  PseudoRandomGenerator::ExpandKey(int times)
 {
+
+	if (times < 1) return; //bug fix
+
 	vector<unsigned __int64> expander;
 
 	for (unsigned int k = 0; k < times; k++)
@@ -274,5 +284,5 @@ void  PseudoRandomGenerator::FillBytes(char bytes[], int size)
 
 void  PseudoRandomGenerator::Drop()
 {
-
+	Generation.clear();
 }

@@ -5,6 +5,7 @@
 #include "IBasylKeyGenerator.h";
 
 
+
 //Default Settings
 const int INITIAL = 131072;
 const int ROUNDS = 200;
@@ -23,6 +24,7 @@ private:
 	//For Chaining Constructors.
 	void Init(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey);
 	void Init(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted);
+	void Init(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted, shared_ptr<BasylPseudoAdaptor> adaptor);
 public:
 	BasylKeyGenerator(string pass);
 	BasylKeyGenerator(string pass, ifstream*source);
@@ -30,6 +32,7 @@ public:
 	BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey);
 	BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, ifstream*source);
 	BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted);
+	BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted, shared_ptr<BasylPseudoAdaptor> adaptor);
 	~BasylKeyGenerator();
 
 	byte GetRandomByte();

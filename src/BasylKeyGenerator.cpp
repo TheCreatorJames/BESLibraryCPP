@@ -1,7 +1,7 @@
 #include "BasylKeyGenerator.h"
 #include <ctime>
 
-BasylKeyGenerator::BasylKeyGenerator()
+BasylKeyGenerator::BasylKeyGenerator() : _Key1(0), _Key2(0)
 {
 }
 
@@ -11,7 +11,7 @@ BasylKeyGenerator::BasylKeyGenerator(const BasylKeyGenerator& b) : _Key1(b._Key1
 
 }
 
-BasylKeyGenerator::BasylKeyGenerator(string pass, ifstream*source)
+BasylKeyGenerator::BasylKeyGenerator(string pass, ifstream*source) : _Key1(0), _Key2(0)
 {
 	char hash[32];
 	(*source).read(hash, 32);
@@ -28,7 +28,7 @@ BasylKeyGenerator::BasylKeyGenerator(string pass, ifstream*source)
 }
 
 
-BasylKeyGenerator::BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, ifstream*source)
+BasylKeyGenerator::BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, ifstream*source) : _Key1(0), _Key2(0)
 {
 
 	char hash[32];
@@ -46,24 +46,29 @@ BasylKeyGenerator::BasylKeyGenerator(string pass, int initial, int rounds, int l
 
 }
 
-BasylKeyGenerator::~BasylKeyGenerator()
+BasylKeyGenerator::~BasylKeyGenerator() 
 {
 
 }
 
-BasylKeyGenerator::BasylKeyGenerator(string pass)
+BasylKeyGenerator::BasylKeyGenerator(string pass) : _Key1(0), _Key2(0)
 {
 	Init(pass, INITIAL, ROUNDS, LEFTOFF, EXPANSION, ADDITIONALKEY);
 }
 
-BasylKeyGenerator::BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey)
+BasylKeyGenerator::BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey) : _Key1(0), _Key2(0)
 {
 	Init(pass, initial, rounds, leftoff, expansion, additionalKey);
 }
 
-BasylKeyGenerator::BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted)
+BasylKeyGenerator::BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted) : _Key1(0), _Key2(0)
 {
 	Init(pass, initial, rounds, leftoff, expansion, additionalKey, hash, key1, key2, encrypted);
+}
+
+BasylKeyGenerator::BasylKeyGenerator(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted, shared_ptr<BasylPseudoAdaptor> adaptor) : _Key1(0), _Key2(0) 
+{
+	Init(pass, initial, rounds, leftoff, expansion, additionalKey, hash, key1, key2, encrypted, adaptor);
 }
 
 
@@ -111,8 +116,13 @@ void BasylKeyGenerator::Init(string pass, int initial, int rounds, int leftoff, 
 
 void BasylKeyGenerator::Init(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted)
 {
-	_Key1 = PseudoRandomGenerator(initial, pass, rounds);
-	_Key2 = PseudoRandomGenerator(1024 * 40, pass, 400);
+	Init(pass, initial, rounds, leftoff, expansion, additionalKey, hash, key1, key2, encrypted, make_shared<BasylPseudoAdaptor>());
+}
+
+void BasylKeyGenerator::Init(string pass, int initial, int rounds, int leftoff, int expansion, string additionalKey, BasylArray<byte> hash, BasylArray<byte> key1, BasylArray<byte> key2, bool encrypted, shared_ptr<BasylPseudoAdaptor> adaptor)
+{
+	_Key1 = PseudoRandomGenerator(initial, pass, rounds, adaptor);
+	_Key2 = PseudoRandomGenerator(1024 * 40, pass, 400, adaptor);
 
 	//Set the left off
 	_Key1.SetLeftoff(leftoff);

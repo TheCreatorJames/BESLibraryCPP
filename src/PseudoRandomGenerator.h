@@ -4,6 +4,10 @@
 #include <vector>
 #include <string>
 #include "BasylArray.h"
+#include "BasylPseudoAdaptor.h"
+#include <memory>
+
+class BasylPseudoAdaptor;
 using namespace std;
 class PseudoRandomGenerator
 {
@@ -13,6 +17,7 @@ private:
 	bool additionalSet, shaSet;
 	string recycleKey;
 	BasylArray<unsigned __int8> sha, additionalKey;
+	std::shared_ptr<BasylPseudoAdaptor> adaptor;
 
 	void Generate(string, int);
 
@@ -28,6 +33,7 @@ public:
 	PseudoRandomGenerator(int);
 	PseudoRandomGenerator(int, string);
 	PseudoRandomGenerator(int, string, int);
+	PseudoRandomGenerator(int, string, int, std::shared_ptr<BasylPseudoAdaptor>);
 	~PseudoRandomGenerator();
 
 	void SetSHA(BasylArray<unsigned __int8>);
