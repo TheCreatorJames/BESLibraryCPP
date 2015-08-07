@@ -1,33 +1,34 @@
+/*$6*/
+
+
 #include "BasylPseudoAdaptor.h"
-
-
 
 BasylPseudoAdaptor::BasylPseudoAdaptor()
 {
 }
 
-
 BasylPseudoAdaptor::~BasylPseudoAdaptor()
 {
 }
 
-void BasylPseudoAdaptor::OddSwap(vector<unsigned __int64>& gen, int pos1, int pos2)
+void BasylPseudoAdaptor::OddSwap(vector<unsigned __int64> &gen, int pos1,
+                                 int pos2)
 {
-	unsigned __int64 temp = gen[pos1];
-	gen[pos1] = gen[pos2];
-	gen[pos2] = temp;
+    unsigned __int64    temp = gen[pos1];
+    gen[pos1] = gen[pos2];
+    gen[pos2] = temp;
 }
 
-void BasylPseudoAdaptor::Shuffle(vector<unsigned __int64>& gen, int round)
-{
-
-}
-
-void BasylPseudoAdaptor::Recycle(vector<unsigned __int64>& gen)
+void BasylPseudoAdaptor::Shuffle(vector<unsigned __int64> &gen, int round)
 {
 }
 
-unsigned __int64 BasylPseudoAdaptor::SeedFunction(unsigned __int64 pos, unsigned __int64 seed)
+void BasylPseudoAdaptor::Recycle(vector<unsigned __int64> &gen)
 {
-	return pos * pos + 2 * pos + pos * pos * pos + seed * pos + seed;
+}
+
+unsigned __int64 BasylPseudoAdaptor::SeedFunction(unsigned __int64 pos,
+                                                  unsigned __int64 seed)
+{
+    return pos * pos + 2 * pos + pos * pos * pos + seed * pos + seed;
 }
