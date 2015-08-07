@@ -1,12 +1,11 @@
 # BESLibraryCPP
+After designing and implementing the [Basyl Encryption Library in C#](https://github.com/TheCreatorJames/BESLibrary), I ported the algorithm to C++. It is completely compatible with the [C# version](https://github.com/TheCreatorJames/BESLibrary) of the library. 
 
 
-### Welcome
-This is a port of the algorithm written in C#. This runs natively, and of course, much faster than the C# variant. More will be added to document this page, but the interface is very similar to the C# version.
+### Features
+
+
+### How to Use
 
 
 ### Todo
-I need to allow the use of BasylPseudoAdaptors in the File Encryption Utility class.
-
-### More Information
-https://github.com/TheCreatorJames/BESLibrary
