@@ -25,7 +25,9 @@ BES Cipher must be decrypted as a whole up to the point you are trying to access
 ### Features
 
 1) Secure Encryption
+
 2) No Keysize Limit
+
 3) Easily and Dynamically Adjustable
 
 ### How to Use
