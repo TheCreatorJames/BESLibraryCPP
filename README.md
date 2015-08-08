@@ -11,7 +11,7 @@ Two main variants exist.
 
 ##### Standard BES
 
-This version of the algorithm XORs against the original file to encrypt. The proper usage of BES uses some sort of hash of the original file as a part of the seed for the original file. This guarantees no two files will ever get the same encryption scheme, even with the same password. An additional 8 bytes of salt are added for extra randomness, so even the same file will never be encrypted the same way twice.
+This version of the algorithm [XORs](https://en.wikipedia.org/wiki/Exclusive_or) against the original file to encrypt. The proper usage of BES uses some sort of hash of the original file as a part of the seed for the original file. This guarantees no two files will ever get the same encryption scheme, even with the same password. An additional 8 bytes of salt are added for extra randomness, so even the same file will never be encrypted the same way twice.
 
 Standard BES has a small known plaintext attack that will allow an attacker to modify bytes in the file. However, because of the hashing step, this is easily detected.
 
@@ -71,7 +71,7 @@ How the BasylWriter does it
 
 ##### BES Cipher Mode
 
-In order to prevent all kinds of attacks, including a known plaintext attack, BES Cipher Mode uses an internal shuffle cipher. This uses the key generator to shuffle around bytes in a cipher similar to the Enigma (but of course, way stronger than the Enigma).
+In order to prevent all kinds of attacks, including a known plaintext attack, BES Cipher Mode uses an internal shuffle cipher. This uses the key generator to shuffle around bytes in a cipher similar to the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine) or shuffling a deck of cards continuously.
 
 BES Cipher must be decrypted as a whole up to the point you are trying to access, so that is it's one disadvantage to standard BES.
 
