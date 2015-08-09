@@ -1,5 +1,5 @@
 # BESLibraryCPP
-After designing and implementing the [Basyl Encryption Library in C#](https://github.com/TheCreatorJames/BESLibrary), I ported the algorithm to C++. It is completely compatible with the [C# version](https://github.com/TheCreatorJames/BESLibrary) of the library. 
+After designing and implementing the [Basyl Encryption Library in C#](https://github.com/TheCreatorJames/BESLibrary), I ported the algorithm to C++. It is completely compatible with the [C# version](https://github.com/TheCreatorJames/BESLibrary) of the library, and now the [Java version](https://github.com/TheCreatorJames/JBESLibrary) of the library as well. 
 
 
 ### What is the Basyl Encryption Standard?
