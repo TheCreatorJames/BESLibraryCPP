@@ -5,7 +5,7 @@ After designing and implementing the [Basyl Encryption Library in C#](https://gi
 ### What is the Basyl Encryption Standard?
 It is a collection of encryption algorithms designed by Jesse Mitchell. These algorithms are different from many other widely used encryption algorithms like [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) and [Triple DES](https://en.wikipedia.org/wiki/Triple_DES), which use [Fiestel networks](https://en.wikipedia.org/wiki/Feistel_cipher) to encrypt files. 
 
-[Fiestel networks](https://en.wikipedia.org/wiki/Feistel_cipher) have restricted key sizes, and can not dynamically be redesigned. The Basyl Encryption Standard is designed to be mathematically comparable in strength to the [One-Time Pad](https://en.wikipedia.org/wiki/One-time_pad), otherwise known as the [Vernam Cipher](https://en.wikipedia.org/wiki/One-time_pad). Using a carefully designed and unpredictable PRNG, the Basyl Encryption standard uses key generators in various ways to encrypt your files. (I am about to upload documentation on the design of the PRNG). 
+[Fiestel networks](https://en.wikipedia.org/wiki/Feistel_cipher) have restricted key sizes, and can not dynamically be redesigned. The Basyl Encryption Standard is designed to be mathematically comparable in strength to the [One-Time Pad](https://en.wikipedia.org/wiki/One-time_pad), otherwise known as the [Vernam Cipher](https://en.wikipedia.org/wiki/One-time_pad). Using a carefully designed and unpredictable PRNG, the Basyl Encryption standard uses key generators in various ways to encrypt your files. Some design notes on how the PRNG was developed are available [here](https://github.com/TheCreatorJames/BESLibrary/blob/master/PRNG.md).
 
 Two main variants exist. 
 
